@@ -9,7 +9,7 @@ module.exports = {
                 primary: '#517248',
             },
             fontFamily: {
-                sans: ['Rubik', ...defaultTheme.fontFamily.sans],
+                sans: ['Unbounded', ...defaultTheme.fontFamily.sans],
             },
         },
     },

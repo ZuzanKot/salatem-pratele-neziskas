@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Unbounded';
+    src: url('/fonts/subset-Unbounded-Medium.woff2') format('woff2'),
+    url('/fonts/subset-Unbounded-Medium.woff') format('woff'),
+    url('/fonts/subset-Unbounded-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Unbounded';
+    src: url('/fonts/subset-Unbounded-Medium_1.woff2') format('woff2'),
+    url('/fonts/subset-Unbounded-Medium_1.woff') format('woff'),
+    url('/fonts/subset-Unbounded-Medium_1.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
