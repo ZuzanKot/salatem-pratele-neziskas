@@ -6,10 +6,13 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                primary: '#517248',
+                primary: '#496d45',
             },
             fontFamily: {
                 sans: ['Unbounded', ...defaultTheme.fontFamily.sans],
+            },
+            dropShadow: {
+                primary: '0 35px 35px rgba(215, 193, 120, 1)',
             },
         },
     },
