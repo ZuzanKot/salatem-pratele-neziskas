@@ -39,7 +39,6 @@ function nextAction() {
 <template>
     <SceneContainer class="absolute" @click="nextAction">
         <SceneContainer
-            id="fitty"
             class="relative flex w-auto max-w-full items-center justify-content-center"
         >
             <ResponsiveImage
@@ -48,7 +47,7 @@ function nextAction() {
                 class="absolute max-h-full cursor-pointer"
             />
             <p
-                class="text-sm sm:text-md md:text-xl xl:text-3xl 2xl:text-5xl z-10 cursor-pointer px-2 text-primary drop-shadow-primary sm:px-6 lg:px-12"
+                class="text-xs sm:text-md md:text-xl xl:text-3xl 2xl:text-5xl z-10 cursor-pointer px-2 text-primary drop-shadow-primary sm:px-6 lg:px-12"
             >
                 {{ texts[currentAction] }}
             </p>
