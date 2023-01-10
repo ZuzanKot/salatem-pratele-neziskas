@@ -4,6 +4,7 @@ import ResponsiveImage from '@/components/ResponsiveImage.vue'
 import SceneContainer from '@/components/SceneContainer.vue'
 import DialogBox from '@/components/DialogBox.vue'
 import DialogTiger from '@/components/DialogTiger.vue'
+
 const emit = defineEmits(['nextScene'])
 
 const introTexts = [
@@ -61,7 +62,7 @@ function nextAction() {
 <template>
     <SceneContainer class="absolute cursor-pointer" @click="nextAction">
         <div class="flex-col justify-start">
-            <DialogTiger />
+            <DialogTiger :action="currentAction" />
             <DialogBox>
                 <p
                     class="py-3 text-sm sm:text-md lg:text-xl xl:text-3xl 2xl:text-5xl z-10 cursor-pointer px-2 text-primary drop-shadow-primary sm:px-6 lg:px-12"

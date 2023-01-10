@@ -1,10 +1,21 @@
 <script setup>
 import ResponsiveImage from '@/components/ResponsiveImage.vue'
-import { computed, ref } from 'vue'
+import { ref, watch } from 'vue'
 
-const numberOfTigerImages = 6
+const props = defineProps(['action'])
+
 const currentTigerImage = ref(0)
-//computed()
+
+watch(
+    () => props.action,
+    () => {
+        if (currentTigerImage.value < 5) {
+            currentTigerImage.value++
+        } else {
+            currentTigerImage.value = 0
+        }
+    }
+)
 </script>
 
 <template>
