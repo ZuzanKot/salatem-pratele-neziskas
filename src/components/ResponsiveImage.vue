@@ -9,17 +9,22 @@ const props = defineProps({
         required: true,
     },
 })
+
+const mainSrc = new URL(`/src/assets/scenes/${props.src}`, import.meta.url)
+const smSrc = new URL(`/src/assets/scenes/sm/${props.src}`, import.meta.url)
+const mdSrc = new URL(`/src/assets/scenes/md/${props.src}`, import.meta.url)
+const lgSrc = new URL(`/src/assets/scenes/lg/${props.src}`, import.meta.url)
 </script>
 
 <template>
     <img
-        :src="`/scenes/${props.src}`"
+        :src="mainSrc.href"
         :srcset="`
-        /scenes/sm/${props.src}
+        ${smSrc.href}
         768w,
-        /scenes/md/${props.src}
+        ${mdSrc.href}
         1200w,
-        /scenes/lg/${props.src}
+        ${lgSrc.href}
         1400w`"
         :alt="props.alt"
     />
