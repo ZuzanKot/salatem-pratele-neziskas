@@ -5,6 +5,7 @@ import Cover from '@/components/Scene/Cover.vue'
 import SceneContainer from '@/components/SceneContainer.vue'
 import DialogOne from '@/components/Scene/DialogOne.vue'
 import Garden from '@/components/Scene/Garden.vue'
+import MusicPlayer from '@/components/MusicPlayer.vue'
 
 const currentScene = ref(0)
 
@@ -31,6 +32,7 @@ function nextScene() {
                 <Garden v-if="currentScene === 3" @next-scene="nextScene" />
             </Transition>
         </SceneContainer>
+        <MusicPlayer :attack="currentScene === 3" />
     </main>
 </template>
 
