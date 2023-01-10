@@ -184,8 +184,124 @@ const partThreeTexts = [
         tiger: 1,
         message: 'Jdi na to Tygře!',
     },
+    {
+        tiger: 2,
+        message: 'No tak já jsem znal jednoho týpka, říkejme mu Béďa.',
+    },
+    {
+        tiger: 2,
+        message:
+            'Ten žil ve stanu v Letňanech. Nemusel, prostě jen chtěl, přišlo mu to dobrodružný a moc věcí ho na světě štvalo.',
+    },
+    {
+        tiger: 2,
+        message:
+            'Nevim, my jsme hlavně pili pivo a hráli karty. Tak jsem za ním jednou šel a už byla vlastně tma a já ho nemoh najít, protože ono to neni tak snadný,',
+    },
+    {
+        tiger: 2,
+        message:
+            'těch stanů je víc a často jsou v pohybu. Ale já se nevzdával, říkal jsem si, že to pivo nebudu přece pít sám, a že už tu přece jen jsem,',
+    },
+    {
+        tiger: 2,
+        message:
+            'tak jsem hledal dál. A znáš to, je tma, praskaj větvičky a šustí stany, stíny se hejbou, začneš si domejšlet věci. Grr grr.',
+    },
+    {
+        tiger: 2,
+        message:
+            'A najednou jsem zaslechl takovej hrozně divnej zvuk, bylo to trochu jako houkání sanitky, ale zároveň to nebyl stroj, to mi bylo jasný.',
+    },
+    {
+        tiger: 2,
+        message:
+            'Chtěl jsem hned odejít, ale jak už to bejvá, tak jsem samozřejmě upad a to už jsem měl fakt nahnáno a začaly se blížit kroky a pak se objevila i postava.',
+    },
+    {
+        tiger: 2,
+        message:
+            'Ale nakonec se ukázalo, že to byl jen Béďa, co našel kotě a tak mu trochu pobrukoval, ale říkám ti, že to bylo fakt divný. Grr grr.',
+    },
+    {
+        tiger: 2,
+        message:
+            'No nicméně to je příběh o tom, jak jsme přišli ke kočce, protože Béďa ji pak už nechtěl, moc práce prej.',
+    },
+    {
+        tiger: 1,
+        message:
+            'Hele, jako dobrý, já Béďu taky znám, však jsme u něj byli párkrát spolu, ale řeknu ti, že jako strašidelná historka to není nic moc.\n',
+    },
+    {
+        tiger: 2,
+        message:
+            'No to říkáš teď, ale tys tam nebyl, tma v Letňanech mezi stany neni žádná legrace, no fakt. A ty máš snad nějakou spooky historku? Grr grr.',
+    },
+    {
+        tiger: 1,
+        message:
+            'Počkej, zkusim si na nějakou vzpomenout, ale asi mě jen napadá příběh o tom, jak mi mizely pruhy.',
+    },
+    {
+        tiger: 2,
+        message: 'Tobě mizely pruhy? To zní strašně!',
+    },
+    {
+        tiger: 1,
+        message:
+            'Bylo to, když jsem byl ještě malej a ještě jsem na sobě neměl všechny pruhy, protože ty dorůstaj, ale to ti nemusim říkat.',
+    },
+    {
+        tiger: 1,
+        message:
+            'U nás doma se tradovalo, že mezi čtvrtym a pátym rokem se to zlomí a tobě všechny pruhy dorostou a pak už se z tebe stává Ten tygr.',
+    },
+    {
+        tiger: 1,
+        message:
+            'Je to velká věc, pořádá se pak pruhovaná slavnost, celá rodina se sejde, dostaneš pruhovanej dres a dort a jsou tam lampiony, je to skvělý.',
+    },
+    {
+        tiger: 1,
+        message:
+            'No ale mně, když mi začalo táhnout na pátej rok, tak mi začaly mizet pruhy. Nikdo moc nechápal, co se děje,',
+    },
+    {
+        tiger: 1,
+        message:
+            'ale moje babička, která je trochu pověrčivá, a která s náma v tý době bydlela, se začala bát, že se ze mě stane puma',
+    },
+    {
+        tiger: 1,
+        message:
+            'a víš, jak to mezi tygry a pumami vře, grr grr. Tak našim doporučila, ať mě zamknou v pokoji',
+    },
+    {
+        tiger: 1,
+        message:
+            'a zatim mi vařila hořkej výluh z bylin, že prej to obnoví pruhovanej růst. A nikdo nic nenamítal.',
+    },
+    {
+        tiger: 1,
+        message:
+            'Já naštěstí dost brzo našel svoje pruhy, jak se schovávaj ve skříni, takže nakonec byla i slavnost a nikdo už pak o tom nemluvil, ale občas na to myslim.',
+    },
+    {
+        tiger: 2,
+        message:
+            'Tyjo, to zní, že sis prožil pěkný trauma, to je mi moc líto. A dík, že to se mnou sdílíš, grr grr',
+    },
+    {
+        tiger: 1,
+        message:
+            'To je samozřejmý, cejtim se s tebou v bezpečí a máme hezkej večer, plnej tepla. Ale když zmiňuju to bezpečí, tak už možná nastal čas, zkontrolovat saláty.',
+    },
+    {
+        tiger: 1,
+        message: 'Takjo, vemu kýbl a jdem na to!',
+    },
 ]
-
 const spaceHandler = function (e) {
     if (e.keyCode === 32) {
         nextAction()
@@ -245,21 +361,21 @@ function handleThirdPart() {
         currentActionThirdPart.value++
     } else {
         partThree.value = false
-        message.value = 'Konec'
+        emit('nextScene')
     }
 }
 
 // TODO: refactor!
 function nextAction() {
-    action.value++
     if (partOne.value === true) {
         handleFirstPart()
+        action.value++
     } else if (partTwo.value === true) {
         handleSecondPart()
+        action.value++
     } else if (partThree.value === true) {
         handleThirdPart()
-    } else {
-        //  emit('nextScene')
+        action.value++
     }
 }
 </script>
@@ -305,9 +421,3 @@ function nextAction() {
         </div>
     </SceneContainer>
 </template>
-
-<style scoped>
-.choice-button:before {
-    content: '\0000a0';
-}
-</style>
