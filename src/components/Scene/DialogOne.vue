@@ -196,16 +196,17 @@ const chooseBranch = function (branch) {
     currentBranch.value = branch
     showChoice.value = false
     partTwoTexts = branch === 1 ? branchOneTexts : branchTwoTexts
-    currentAction.value = 0
     partTwo.value = true
-    nextAction()
 }
 
 onMounted(() => {
     document.addEventListener('keydown', spaceHandler)
 })
 
-const currentAction = ref(0)
+const currentActionFirstPart = ref(0)
+const currentActionSecondPart = ref(0)
+const currentActionThirdPart = ref(0)
+const action = ref(0)
 const currentTiger = ref(1)
 const showChoice = ref(false)
 const currentBranch = ref(null)
@@ -214,52 +215,59 @@ const partTwo = ref(false)
 const partThree = ref(false)
 const message = ref(introTexts[0].message)
 
-// TODO: refactor!
-function nextAction() {
-    if (
-        currentBranch.value === null &&
-        currentAction.value < introTexts.length - 1
-    ) {
-        currentAction.value++
-        message.value = introTexts[currentAction.value].message
-        currentTiger.value = introTexts[currentAction.value].tiger
-    } else if (currentBranch.value === null) {
-        message.value = ''
+function handleFirstPart() {
+    if (currentActionFirstPart.value < introTexts.length - 1) {
+        currentActionFirstPart.value++
+        message.value = introTexts[currentActionFirstPart.value].message
+        currentTiger.value = introTexts[currentActionFirstPart.value].tiger
+    } else {
+        partOne.value = false
         showChoice.value = true
-    } else if (
-        partTwo.value &&
-        partTwoTexts.length > 0 &&
-        currentAction.value < partTwoTexts.length - 1
-    ) {
-        currentAction.value++
-        message.value = partTwoTexts[currentAction.value].message
-        currentTiger.value = partTwoTexts[currentAction.value].tiger
-    } else if (
-        partTwo.value &&
-        currentAction.value === partTwoTexts.length - 1
-    ) {
-        currentAction.value = 0
+        message.value = ''
+    }
+}
+
+function handleSecondPart() {
+    if (currentActionSecondPart.value < partTwoTexts.length) {
+        message.value = partTwoTexts[currentActionSecondPart.value].message
+        currentTiger.value = partTwoTexts[currentActionSecondPart.value].tiger
+        currentActionSecondPart.value++
+    } else {
         partTwo.value = false
         partThree.value = true
-    } else if (
-        partThree.value &&
-        currentAction.value < partThreeTexts.length - 1
-    ) {
-        currentAction.value++
-        message.value = partThreeTexts[currentAction.value].message
-        currentTiger.value = partThreeTexts[currentAction.value].tiger
+    }
+}
+
+function handleThirdPart() {
+    if (currentActionThirdPart.value < partThreeTexts.length) {
+        message.value = partThreeTexts[currentActionThirdPart.value].message
+        currentTiger.value = partThreeTexts[currentActionThirdPart.value].tiger
+        currentActionThirdPart.value++
+    } else {
+        partThree.value = false
+        message.value = 'Konec'
+    }
+}
+
+// TODO: refactor!
+function nextAction() {
+    action.value++
+    if (partOne.value === true) {
+        handleFirstPart()
+    } else if (partTwo.value === true) {
+        handleSecondPart()
+    } else if (partThree.value === true) {
+        handleThirdPart()
     } else {
         //  emit('nextScene')
     }
-
-    // partThreeTexts
 }
 </script>
 
 <template>
     <SceneContainer class="absolute cursor-pointer" @click="nextAction">
         <div class="flex-col justify-start">
-            <DialogTiger :action="currentAction" />
+            <DialogTiger :action="action" />
             <DialogBox>
                 <p
                     v-show="message"
