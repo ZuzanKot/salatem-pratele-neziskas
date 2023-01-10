@@ -4,6 +4,7 @@ import Intro from '@/components/Scene/Intro.vue'
 import Cover from '@/components/Scene/Cover.vue'
 import SceneContainer from '@/components/SceneContainer.vue'
 import DialogOne from '@/components/Scene/DialogOne.vue'
+import Garden from '@/components/Scene/Garden.vue'
 
 const currentScene = ref(0)
 
@@ -25,6 +26,9 @@ function nextScene() {
             </Transition>
             <Transition>
                 <DialogOne v-if="currentScene === 2" @next-scene="nextScene" />
+            </Transition>
+            <Transition>
+                <Garden v-if="currentScene === 3" @next-scene="nextScene" />
             </Transition>
         </SceneContainer>
     </main>
