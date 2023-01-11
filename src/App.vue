@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import Intro from '@/components/Scene/Intro.vue'
 import Cover from '@/components/Scene/Cover.vue'
 import SceneContainer from '@/components/SceneContainer.vue'
@@ -8,6 +8,24 @@ import Garden from '@/components/Scene/Garden.vue'
 import MusicPlayer from '@/components/MusicPlayer.vue'
 
 const currentScene = ref(0)
+
+const attackMusic = new URL('/src/assets/sound/attack.mp3', import.meta.url)
+const fireMusic = new URL('/src/assets/sound/bg.mp3', import.meta.url)
+
+const musicSrc = ref('')
+const musicLoop = ref(false)
+
+watch(currentScene, (newValue, oldValue) => {
+    if (oldValue === 1) {
+        musicSrc.value = fireMusic.href
+        musicLoop.value = true
+    }
+
+    if (oldValue === 2) {
+        musicSrc.value = attackMusic.href
+        musicLoop.value = false
+    }
+})
 
 function nextScene() {
     currentScene.value++
@@ -32,7 +50,7 @@ function nextScene() {
                 <Garden v-if="currentScene === 3" @next-scene="nextScene" />
             </Transition>
         </SceneContainer>
-        <MusicPlayer :attack="currentScene === 3" />
+        <MusicPlayer :src="musicSrc" :loop="musicLoop" />
     </main>
 </template>
 
