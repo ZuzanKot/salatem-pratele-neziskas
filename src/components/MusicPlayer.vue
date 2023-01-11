@@ -1,32 +1,31 @@
 <script setup>
-import { onMounted, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { Howl } from 'howler'
 
-const props = defineProps(['attack'])
+const props = defineProps(['src', 'loop'])
 
-const attackPath = new URL('/src/assets/sound/attack.mp3', import.meta.url)
-const bgPath = new URL('/src/assets/sound/bg.mp3', import.meta.url)
+const sound = ref(null)
 
 watch(
-    () => props.attack,
+    () => props.src,
     (newValue) => {
-        if (newValue === true) {
-            const sound = new Howl({
-                src: [attackPath.href],
+        if (sound.value) {
+            sound.value.stop()
+        }
+
+        if (newValue) {
+            sound.value = new Howl({
+                src: [props.src],
+                loop: props.loop,
+                autoplay: true,
             })
 
-            sound.play()
+            sound.value.play()
+        } else {
+            sound.value.stop()
         }
     }
 )
-
-onMounted(() => {
-    const sound = new Howl({
-        src: [bgPath.href],
-    })
-
-    sound.play()
-})
 </script>
 
 <template>
