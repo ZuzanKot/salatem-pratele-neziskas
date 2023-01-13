@@ -301,6 +301,10 @@ const partThreeTexts = [
         tiger: 1,
         message: 'Takjo, vemu kýbl a jdem na to!',
     },
+    {
+        tiger: 3,
+        message: '(tygři berou kýbl a jdou na to)',
+    }
 ]
 const spaceHandler = function (e) {
     if (e.keyCode === 32) {
@@ -391,6 +395,9 @@ function nextAction() {
                     :class="{
                         'text-right': currentTiger === 2,
                         'text-dark': currentTiger === 2,
+                        'text-center': currentTiger === 3,
+                        'text-gray-600': currentTiger === 3,
+                        italic: currentTiger === 3,
                     }"
                 >
                     {{ message }}
