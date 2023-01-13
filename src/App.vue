@@ -6,8 +6,9 @@ import SceneContainer from '@/components/SceneContainer.vue'
 import Dialog from '@/components/Scene/Dialog.vue'
 import Garden from '@/components/Scene/Garden.vue'
 import MusicPlayer from '@/components/MusicPlayer.vue'
+import End from '@/components/Scene/End.vue'
 
-const currentScene = ref(0)
+const currentScene = ref(3)
 
 const attackMusic = new URL('/src/assets/sound/attack.mp3', import.meta.url)
 const fireMusic = new URL('/src/assets/sound/bg.mp3', import.meta.url)
@@ -48,6 +49,9 @@ function nextScene() {
             </Transition>
             <Transition>
                 <Garden v-if="currentScene === 3" @next-scene="nextScene" />
+            </Transition>
+            <Transition>
+                <End v-if="currentScene === 4" @next-scene="nextScene" />
             </Transition>
         </SceneContainer>
         <MusicPlayer :src="musicSrc" :loop="musicLoop" />

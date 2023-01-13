@@ -36,8 +36,13 @@ watch(
     () => slugs,
     () => {
         if (slugs.value.filter((slug) => slug.active).length === 0) {
-            emit('nextScene')
+            setTimeout(() => {
+                emit('nextScene')
+            }, 1000)
         }
+    },
+    {
+        deep: true,
     }
 )
 </script>
