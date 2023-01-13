@@ -8,7 +8,7 @@ import Garden from '@/components/Scene/Garden.vue'
 import MusicPlayer from '@/components/MusicPlayer.vue'
 import End from '@/components/Scene/End.vue'
 
-const currentScene = ref(3)
+const currentScene = ref(0)
 
 const attackMusic = new URL('/src/assets/sound/attack.mp3', import.meta.url)
 const fireMusic = new URL('/src/assets/sound/bg.mp3', import.meta.url)
