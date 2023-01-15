@@ -1,9 +1,12 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue'
+import { Howl } from 'howler'
 import ResponsiveImage from '@/components/ResponsiveImage.vue'
 import SceneContainer from '@/components/SceneContainer.vue'
 import SlugButton from '@/components/SlugButton.vue'
 import BigSlugButton from '@/components/BigSlugButton.vue'
+
+const clickSound = new URL('/src/assets/sound/click.mp3', import.meta.url)
 
 const emit = defineEmits(['nextScene'])
 const slugs = ref([])
@@ -16,6 +19,7 @@ const handleSlug = (id) => {
         }
         return slug
     })
+    playSound()
 }
 
 const handleBigSlug = (event) => {
@@ -28,6 +32,8 @@ const handleBigSlug = (event) => {
     button.classList.remove('slide-in')
     button.classList.add('roll-out')
 
+    playSound()
+
     setTimeout(() => {
         emit('nextScene')
     }, 1200)
@@ -35,6 +41,16 @@ const handleBigSlug = (event) => {
 
 const randomIntFromInterval = (min, max) => {
     return Math.random() * (max - min) + min
+}
+
+const playSound = () => {
+    const sound = new Howl({
+        src: clickSound.href,
+        loop: false,
+        autoplay: true,
+    })
+
+    sound.play()
 }
 
 onMounted(() => {
