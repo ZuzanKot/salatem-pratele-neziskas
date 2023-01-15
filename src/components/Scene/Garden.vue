@@ -26,7 +26,7 @@ onMounted(() => {
             id: i,
             active: true,
             x: randomIntFromInterval(0, 45),
-            y: randomIntFromInterval(0, 45),
+            y: randomIntFromInterval(0, 25),
             size: randomIntFromInterval(0.7, 1),
         })
     }
