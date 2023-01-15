@@ -298,13 +298,13 @@ const partThreeTexts = [
             'To je samozřejmý, cejtim se s tebou v bezpečí a máme hezkej večer, plnej tepla. Ale když zmiňuju to bezpečí, tak už možná nastal čas, zkontrolovat saláty.',
     },
     {
-        tiger: 1,
+        tiger: 2,
         message: 'Takjo, vemu kýbl a jdem na to!',
     },
     {
         tiger: 3,
         message: '(tygři berou kýbl a jdou na to)',
-    }
+    },
 ]
 const spaceHandler = function (e) {
     if (e.keyCode === 32) {
