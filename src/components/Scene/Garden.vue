@@ -108,6 +108,7 @@ watch(
                         class="heartbeat absolute"
                         :class="{
                             'roll-out': !slug.active,
+                            'z-20': slug.id === 0,
                         }"
                         :style="{
                             top: `${slug.y}%`,
