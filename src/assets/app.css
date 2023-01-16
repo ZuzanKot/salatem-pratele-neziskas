@@ -26,3 +26,89 @@
 ::selection {
     background-color: transparent !important;
 }
+
+.heartbeat {
+    animation: heartbeat 1s ease-in-out 3 both;
+}
+
+.roll-out {
+    animation: roll-out 0.6s ease-in both;
+}
+
+.slide-in {
+    animation: slide-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes heartbeat {
+    from {
+        transform: scale(1);
+        animation-timing-function: ease-out;
+    }
+    10% {
+        transform: scale(0.91);
+        animation-timing-function: ease-in;
+    }
+    17% {
+        transform: scale(0.98);
+        animation-timing-function: ease-out;
+    }
+    33% {
+        transform: scale(0.87);
+        animation-timing-function: ease-in;
+    }
+    45% {
+        transform: scale(1);
+        animation-timing-function: ease-out;
+    }
+}
+
+@keyframes roll-out {
+    0% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-1000px) rotate(-540deg);
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(1000px) scaleX(2.5) scaleY(0.2);
+        transform-origin: 0 50%;
+        filter: blur(40px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) scaleY(1) scaleX(1);
+        transform-origin: 50% 50%;
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+@keyframes jello {
+    0% {
+        transform: scale3d(1, 1, 1);
+    }
+    30% {
+        transform: scale3d(1.25, 0.75, 1);
+    }
+    40% {
+        transform: scale3d(0.75, 1.25, 1);
+    }
+    50% {
+        transform: scale3d(1.15, 0.85, 1);
+    }
+    65% {
+        transform: scale3d(0.95, 1.05, 1);
+    }
+    75% {
+        transform: scale3d(1.05, 0.95, 1);
+    }
+    100% {
+        transform: scale3d(1, 1, 1);
+    }
+}

@@ -1,11 +1,16 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue'
+import { Howl } from 'howler'
 import ResponsiveImage from '@/components/ResponsiveImage.vue'
 import SceneContainer from '@/components/SceneContainer.vue'
 import SlugButton from '@/components/SlugButton.vue'
+import BigSlugButton from '@/components/BigSlugButton.vue'
+
+const clickSound = new URL('/src/assets/sound/click.mp3', import.meta.url)
 
 const emit = defineEmits(['nextScene'])
 const slugs = ref([])
+const bigSlug = ref(false)
 
 const handleSlug = (id) => {
     slugs.value = slugs.value.map((slug) => {
@@ -14,10 +19,38 @@ const handleSlug = (id) => {
         }
         return slug
     })
+    playSound()
+}
+
+const handleBigSlug = (event) => {
+    let button = event.target
+
+    if (button.tagName === 'IMG') {
+        button = button.parentElement
+    }
+
+    button.classList.remove('slide-in')
+    button.classList.add('roll-out')
+
+    playSound()
+
+    setTimeout(() => {
+        emit('nextScene')
+    }, 1200)
 }
 
 const randomIntFromInterval = (min, max) => {
     return Math.random() * (max - min) + min
+}
+
+const playSound = () => {
+    const sound = new Howl({
+        src: clickSound.href,
+        loop: false,
+        autoplay: true,
+    })
+
+    sound.play()
 }
 
 onMounted(() => {
@@ -26,7 +59,7 @@ onMounted(() => {
             id: i,
             active: true,
             x: randomIntFromInterval(0, 45),
-            y: randomIntFromInterval(0, 45),
+            y: randomIntFromInterval(0, 25),
             size: randomIntFromInterval(0.7, 1),
         })
     }
@@ -37,7 +70,7 @@ watch(
     () => {
         if (slugs.value.filter((slug) => slug.active).length === 0) {
             setTimeout(() => {
-                emit('nextScene')
+                bigSlug.value = true
             }, 1000)
         }
     },
@@ -61,13 +94,18 @@ watch(
             <div
                 class="grid grid-cols-3 gap-4 place-items-stretch w-full h-full"
             >
+                <BigSlugButton
+                    v-if="bigSlug"
+                    class="absolute inset-1/2 slide-in z-10"
+                    @click="handleBigSlug($event)"
+                />
                 <div
                     v-for="slug in slugs"
-                    class="h-full w-full relative"
+                    class="h-full w-full relative z-0"
                     :key="slug.id"
                 >
                     <SlugButton
-                        class="z-10 heartbeat absolute"
+                        class="heartbeat absolute"
                         :class="{
                             'roll-out': !slug.active,
                         }"
@@ -76,55 +114,10 @@ watch(
                             left: `${slug.x}%`,
                             transform: 'scale(' + slug.size + ')',
                         }"
-                        @clicked="handleSlug(slug.id)"
+                        @click="handleSlug(slug.id)"
                     />
                 </div>
             </div>
         </SceneContainer>
     </SceneContainer>
 </template>
-
-<style scoped>
-.heartbeat {
-    animation: heartbeat 1s ease-in-out 3 both;
-}
-
-.roll-out {
-    animation: roll-out 0.6s ease-in both;
-}
-
-@keyframes heartbeat {
-    from {
-        transform: scale(1);
-        animation-timing-function: ease-out;
-    }
-    10% {
-        transform: scale(0.91);
-        animation-timing-function: ease-in;
-    }
-    17% {
-        transform: scale(0.98);
-        animation-timing-function: ease-out;
-    }
-    33% {
-        transform: scale(0.87);
-        animation-timing-function: ease-in;
-    }
-    45% {
-        transform: scale(1);
-        animation-timing-function: ease-out;
-    }
-}
-
-@keyframes roll-out {
-    0% {
-        transform: translateX(0) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateX(-1000px) rotate(-540deg);
-        opacity: 0;
-        display: none;
-    }
-}
-</style>
